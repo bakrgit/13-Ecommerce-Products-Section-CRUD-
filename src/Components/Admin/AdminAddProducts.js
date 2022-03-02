@@ -21,7 +21,6 @@ const AdminAddProducts = () => {
                 <Col sm="8">
                     <div className="text-form pb-2"> صور للمنتج</div>
 
-
                     <MultiImageInput
                         images={images}
                         setImages={setImages}
@@ -72,9 +71,9 @@ const AdminAddProducts = () => {
                         className="select input-form-area mt-3 px-2 ">
                         <option value="0">التصنيف الرئيسي</option>
                         {
-                            category.data ? (category.data.map((item) => {
+                            category.data ? (category.data.map((item,index) => {
                                 return (
-                                    <option value={item._id}>{item.name}</option>
+                                    <option key={index} value={item._id}>{item.name}</option>
                                 )
                             })) : null
 
@@ -96,9 +95,9 @@ const AdminAddProducts = () => {
                         className="select input-form-area mt-3 px-2 ">
                         <option value="0">اختر ماركة</option>
                         {
-                            brand.data ? (brand.data.map((item) => {
+                            brand.data ? (brand.data.map((item,index) => {
                                 return (
-                                    <option value={item._id}>{item.name}</option>
+                                    <option key={index} value={item._id}>{item.name}</option>
                                 )
                             })) : null
 

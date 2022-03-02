@@ -32,7 +32,7 @@ const AdminAddProductsHook = () => {
     const [options, setOptions] = useState([]);
 
     //values images products
-    const [images, setImages] = useState([]);
+    const [images, setImages] = useState({});
     //values state
     const [prodName, setProdName] = useState('');
     const [prodDescription, setProdDescription] = useState('');
@@ -101,6 +101,7 @@ const AdminAddProductsHook = () => {
     useEffect(() => {
         if (CatID !== 0) {
             if (subCat.data) {
+
                 setOptions(subCat.data)
             }
         }
@@ -170,7 +171,7 @@ const AdminAddProductsHook = () => {
     useEffect(() => {
 
         if (loading === false) {
-            setCatID(0)
+           // setCatID(0)
             setColors([])
             setImages([])
             setProdName('')

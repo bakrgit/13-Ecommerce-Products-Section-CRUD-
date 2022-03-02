@@ -7,12 +7,12 @@ const ViewProductAdminHook = () => {
 
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getAllProducts(12))
+        dispatch(getAllProducts(8))
     }, [])
 
 
     const onPress = async (page) => {
-        await dispatch(getAllProductsPage(page, 12))
+        await dispatch(getAllProductsPage(page, 8))
     }
     let items = []; let pagination = [];
     const allProducts = useSelector((state) => state.allproducts.allProducts)
