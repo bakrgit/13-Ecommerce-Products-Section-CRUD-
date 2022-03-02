@@ -142,7 +142,6 @@ const AdminEditProductsHook = (id) => {
 
     //to convert base 64 to file
     function dataURLtoFile(dataurl, filename) {
-
         var arr = dataurl.split(','),
             mime = arr[0].match(/:(.*?);/)[1],
             bstr = atob(arr[1]),
@@ -158,7 +157,7 @@ const AdminEditProductsHook = (id) => {
 
     //convert url to file
     const convertURLtoFile = async (url) => {
-        const response = await fetch(url);
+        const response = await fetch(url, { mode: "cors" });
         const data = await response.blob();
         const ext = url.split(".").pop();
         const filename = url.split("/").pop();
@@ -178,21 +177,21 @@ const AdminEditProductsHook = (id) => {
         if (images[0].length <= 1000) {
             convertURLtoFile(images[0]).then(val => imgCover = val)
         } else {
-            //convert base 64 image to file 
             imgCover = dataURLtoFile(images[0], Math.random() + ".png")
         }
+
         let itemImages = []
         //convert array of base 64 image to file 
         Array.from(Array(Object.keys(images).length).keys()).map(
             (item, index) => {
                 if (images[index].length <= 1000) {
                     convertURLtoFile(images[index]).then(val => itemImages.push(val))
-                } else {
+                }
+                else {
                     itemImages.push(dataURLtoFile(images[index], Math.random() + ".png"))
                 }
+            })
 
-            }
-        )
         const formData = new FormData();
         formData.append("title", prodName);
         formData.append("description", prodDescription);
@@ -201,10 +200,13 @@ const AdminEditProductsHook = (id) => {
 
         formData.append("category", CatID);
         formData.append("brand", BrandID);
+
         setTimeout(() => {
             formData.append("imageCover", imgCover);
             itemImages.map((item) => formData.append("images", item))
         }, 1000);
+
+
         colors.map((color) => formData.append("availableColors", color))
         seletedSubID.map((item) => formData.append("subcategory", item._id))
         setTimeout(async () => {
@@ -212,7 +214,6 @@ const AdminEditProductsHook = (id) => {
             await dispatch(updateProducts(id, formData))
             setLoading(false)
         }, 1000);
-
 
     }
 
